@@ -1,91 +1,181 @@
-<script>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أيام عالمية</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .header {
+            background-color: #4CAF50;
+            padding: 20px;
+            color: white;
+            font-size: 24px;
+        }
+        .content {
+            margin-top: 30px;
+            font-size: 20px;
+        }
+        .today {
+            font-size: 30px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .event {
+            margin-top: 20px;
+            background-color: #e8f5e9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .events-list {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .event-item {
+            padding: 15px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .event-item h3 {
+            margin: 0;
+            font-size: 20px;
+            color: #4CAF50;
+        }
+        .event-item p {
+            font-size: 16px;
+            color: #333;
+        }
+        .event-item:hover {
+            background-color: #e0f7fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        أيام عالمية
+    </div>
+    <div class="content">
+        <div class="today">
+            <p>اليوم هو: <span id="current-date"></span></p>
+            <p id="event-info"></p>
+        </div>
+    </div>
 
-const days = [
-{d:1,m:1,name:"اليوم العالمي للسلام",goal:"تعزيز السلام ونبذ العنف."},
-{d:4,m:1,name:"اليوم العالمي للغة برايل",goal:"دعم حقوق المكفوفين وإمكانية الوصول للمعلومات."},
-{d:6,m:1,name:"اليوم العالمي للأيتام",goal:"دعم الأطفال فاقدي الرعاية الوالدية."},
-{d:10,m:1,name:"اليوم العالمي للحد من الفقر",goal:"تعزيز العدالة الاجتماعية ومحاربة الفقر."},
-{d:21,m:1,name:"اليوم العالمي للعناق",goal:"تعزيز العلاقات الإنسانية الإيجابية."},
-{d:27,m:1,name:"اليوم الدولي لإحياء ذكرى الهولوكوست",goal:"تعزيز قيم التسامح ومنع الإبادة الجماعية."},
+    <div class="events-list">
+        <!-- قائمة الأيام العالمية -->
+        <div class="event-item">
+            <h3>اليوم العالمي للسلام</h3>
+            <p>يحتفل به في: 1 يناير</p>
+            <p>يهدف إلى تعزيز ثقافة السلام في العالم.</p>
+        </div>
+        <div class="event-item">
+            <h3>اليوم العالمي لمكافحة مرض الإيدز</h3>
+            <p>يحتفل به في: 1 يناير</p>
+            <p>يهدف لرفع الوعي حول مرض الإيدز وطرق الوقاية منه.</p>
+        </div>
+        <div class="event-item">
+            <h3>اليوم العالمي للتعليم</h3>
+            <p>يحتفل به في: 24 يناير</p>
+            <p>يركز على أهمية التعليم في التنمية البشرية.</p>
+        </div>
+        <div class="event-item">
+            <h3>اليوم الدولي للغة الأم</h3>
+            <p>يحتفل به في: 21 فبراير</p>
+            <p>يهدف إلى تعزيز التنوع الثقافي وحماية اللغات المحلية.</p>
+        </div>
+        <div class="event-item">
+            <h3>اليوم العالمي لسرطان الأطفال</h3>
+            <p>يحتفل به في: 15 فبراير</p>
+            <p>يزيد الوعي حول مرض السرطان عند الأطفال وأهمية الوقاية.</p>
+        </div>
+        <div class="event-item">
+            <h3>اليوم العالمي لسرطان الثدي</h3>
+            <p>يحتفل به في: 4 فبراير</p>
+            <p>يركز على التوعية بسرطان الثدي وطرق الكشف المبكر.</p>
+        </div>
+        <div class="event-item">
+            <h3>اليوم العالمي للعدالة الاجتماعية</h3>
+            <p>يحتفل به في: 20 فبراير</p>
+            <p>يهدف إلى تعزيز العدالة الاجتماعية والاقتصادية على مستوى العالم.</p>
+        </div>
+        <div class="event-item">
+            <h3>اليوم العالمي للحيوانات</h3>
+            <p>يحتفل به في: 17 فبراير</p>
+            <p>يركز على حماية حقوق الحيوانات والتوعية حول رفاهيتها.</p>
+        </div>
+        <div class="event-item">
+            <h3>اليوم العالمي للمرأة</h3>
+            <p>يحتفل به في: 8 مارس</p>
+            <p>يحتفل بحقوق المرأة ومساهماتها في المجتمع.</p>
+        </div>
+        <div class="event-item">
+            <h3>اليوم العالمي لحقوق الإنسان</h3>
+            <p>يحتفل به في: 10 مارس</p>
+            <p>يركز على نشر ثقافة حقوق الإنسان وحمايتها.</p>
+        </div>
+        <div class="event-item">
+            <h3>اليوم العالمي للتوحد</h3>
+            <p>يحتفل به في: 2 أبريل</p>
+            <p>يزيد الوعي حول مرض التوحد ودعم الأفراد المصابين به.</p>
+        </div>
+        <div class="event-item">
+            <h3>اليوم العالمي للغة الأم</h3>
+            <p>يحتفل به في: 21 مارس</p>
+            <p>يهدف إلى تعزيز الوعي باللغات الأصلية وحمايتها.</p>
+        </div>
+        <div class="event-item">
+            <h3>اليوم العالمي للصحة</h3>
+            <p>يحتفل به في: 7 أبريل</p>
+            <p>يركز على رفع الوعي حول أهمية الصحة العامة.</p>
+        </div>
+        <div class="event-item">
+            <h3>اليوم العالمي للبيئة</h3>
+            <p>يحتفل به في: 22 أبريل</p>
+            <p>يهدف إلى حماية البيئة ورفع الوعي بالقضايا البيئية.</p>
+        </div>
+    </div>
 
-{d:2,m:2,name:"اليوم العالمي للأراضي الرطبة",goal:"حماية النظم البيئية والأراضي الرطبة."},
-{d:11,m:2,name:"اليوم الدولي للمرأة والفتاة في ميدان العلوم",goal:"تمكين النساء والفتيات في العلوم."},
-{d:21,m:2,name:"اليوم الدولي للغة الأم",goal:"حماية التنوع اللغوي والثقافي."},
-{d:28,m:2,name:"اليوم العالمي للأمراض النادرة",goal:"دعم المصابين بالأمراض النادرة."},
+    <script>
+        const events = [
+            { date: '2026-01-01', event: 'اليوم العالمي للسلام' },
+            { date: '2026-01-01', event: 'اليوم العالمي لمكافحة مرض الإيدز' },
+            { date: '2026-01-24', event: 'اليوم العالمي للتعليم' },
+            { date: '2026-02-21', event: 'اليوم الدولي للغة الأم' },
+            { date: '2026-02-15', event: 'اليوم العالمي لسرطان الأطفال' },
+            { date: '2026-02-04', event: 'اليوم العالمي لسرطان الثدي' },
+            { date: '2026-02-20', event: 'اليوم العالمي للعدالة الاجتماعية' },
+            { date: '2026-02-17', event: 'اليوم العالمي للحيوانات' },
+            { date: '2026-03-08', event: 'اليوم العالمي للمرأة' },
+            { date: '2026-03-10', event: 'اليوم العالمي لحقوق الإنسان' },
+            { date: '2026-04-02', event: 'اليوم العالمي للتوحد' },
+            { date: '2026-03-21', event: 'اليوم العالمي للغة الأم' },
+            { date: '2026-04-07', event: 'اليوم العالمي للصحة' },
+            { date: '2026-04-22', event: 'اليوم العالمي للبيئة' }
+        ];
 
-{d:8,m:3,name:"اليوم العالمي للمرأة",goal:"تعزيز حقوق المرأة والمساواة بين الجنسين."},
-{d:21,m:3,name:"اليوم العالمي للغابات",goal:"الحفاظ على الغابات ومكافحة التصحر."},
-{d:22,m:3,name:"اليوم العالمي للمياه",goal:"الحفاظ على مصادر المياه النظيفة."},
+        function checkEvent() {
+            const today = new Date().toISOString().split('T')[0]; // الحصول على تاريخ اليوم
+            document.getElementById('current-date').textContent = today;
 
-{d:7,m:4,name:"اليوم العالمي للصحة",goal:"رفع الوعي بالصحة العامة وتحسين الخدمات الصحية."},
-{d:22,m:4,name:"اليوم العالمي للأرض",goal:"حماية البيئة ومواجهة التغير المناخي."},
+            const eventToday = events.find(event => event.date === today);
+            if (eventToday) {
+                document.getElementById('event-info').textContent = `اليوم هو: ${eventToday.event}`;
+            } else {
+                document.getElementById('event-info').textContent = 'لا توجد مناسبة عالمية اليوم.';
+            }
+        }
 
-{d:1,m:5,name:"عيد العمال العالمي",goal:"تكريم العمال وتعزيز حقوقهم."},
-{d:3,m:5,name:"اليوم العالمي لحرية الصحافة",goal:"دعم حرية التعبير وحماية الصحفيين."},
-
-{d:5,m:6,name:"اليوم العالمي للبيئة",goal:"تعزيز حماية البيئة ومواجهة التغير المناخي."},
-{d:20,m:6,name:"اليوم العالمي للاجئين",goal:"دعم وحماية حقوق اللاجئين."},
-
-{d:11,m:7,name:"اليوم العالمي للسكان",goal:"رفع الوعي بالتنمية السكانية وحقوق الإنسان."},
-
-{d:12,m:8,name:"اليوم العالمي للشباب",goal:"تمكين الشباب وتعزيز دورهم في المجتمع."},
-
-{d:21,m:9,name:"اليوم العالمي للسلام",goal:"نشر ثقافة السلام والتسامح بين الشعوب."},
-
-{d:10,m:10,name:"اليوم العالمي للصحة النفسية",goal:"رفع الوعي بالصحة النفسية والدعم المجتمعي."},
-
-{d:20,m:11,name:"اليوم العالمي للطفل",goal:"دعم حقوق الأطفال وحمايتهم."},
-
-{d:10,m:12,name:"اليوم العالمي لحقوق الإنسان",goal:"تعزيز حقوق الإنسان والعدالة والمساواة."}
-];
-
-const months=[
-"كانون الثاني","شباط","آذار","نيسان","أيار","حزيران",
-"تموز","آب","أيلول","تشرين الأول","تشرين الثاني","كانون الأول"
-];
-
-function getTodayValue(){
-let now=new Date(); // يعتمد على تاريخ الموبايل
-return (now.getMonth()+1)*100+now.getDate();
-}
-
-function showAllDays(){
-
-let container=document.body;
-let todayValue=getTodayValue();
-
-// ترتيب حسب التاريخ
-let sorted=[...days].sort((a,b)=> (a.m*100+a.d)-(b.m*100+b.d));
-
-sorted.forEach(day=>{
-
-let value=day.m*100+day.d;
-let statusClass="prev";
-let icon="⬅";
-
-if(value===todayValue){
-statusClass="today";
-icon="⭐";
-}
-else if(value>todayValue){
-statusClass="next";
-icon="⏭";
-}
-
-let card=document.createElement("div");
-card.className="card "+statusClass;
-
-card.innerHTML=
-"<h3>"+icon+" "+day.name+"</h3>"+
-day.d+" "+months[day.m-1]+"<br><br>"+
-day.goal;
-
-container.appendChild(card);
-
-});
-
-}
-
-showAllDays();
-
-</script>
+        checkEvent();
+    </script>
+</body>
+</html>
