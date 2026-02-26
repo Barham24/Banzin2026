@@ -58,6 +58,12 @@
         .event-item:hover {
             background-color: #e0f7fa;
         }
+        .upcoming-event {
+            background-color: #ffeb3b; /* اللون المميز للأيام القادمة */
+        }
+        .upcoming-event h3 {
+            color: #d32f2f; /* تمييز العناوين بالأحمر */
+        }
     </style>
 </head>
 <body>
@@ -133,15 +139,25 @@
             <p>يحتفل به في: 21 مارس</p>
             <p>يهدف إلى تعزيز الوعي باللغات الأصلية وحمايتها.</p>
         </div>
-        <div class="event-item">
+        <div class="event-item upcoming-event">
+            <h3>عيد نوروز</h3>
+            <p>يحتفل به في: 21 مارس</p>
+            <p>يحتفل ببداية الربيع وبداية السنة الفارسية الجديدة.</p>
+        </div>
+        <div class="event-item upcoming-event">
             <h3>اليوم العالمي للصحة</h3>
             <p>يحتفل به في: 7 أبريل</p>
             <p>يركز على رفع الوعي حول أهمية الصحة العامة.</p>
         </div>
-        <div class="event-item">
+        <div class="event-item upcoming-event">
             <h3>اليوم العالمي للبيئة</h3>
             <p>يحتفل به في: 22 أبريل</p>
             <p>يهدف إلى حماية البيئة ورفع الوعي بالقضايا البيئية.</p>
+        </div>
+        <div class="event-item upcoming-event">
+            <h3>عيد العمال</h3>
+            <p>يحتفل به في: 1 مايو</p>
+            <p>يحتفل بإنجازات العمال وحقوقهم في جميع أنحاء العالم.</p>
         </div>
     </div>
 
@@ -159,23 +175,11 @@
             { date: '2026-03-10', event: 'اليوم العالمي لحقوق الإنسان' },
             { date: '2026-04-02', event: 'اليوم العالمي للتوحد' },
             { date: '2026-03-21', event: 'اليوم العالمي للغة الأم' },
+            { date: '2026-03-21', event: 'عيد نوروز' },
             { date: '2026-04-07', event: 'اليوم العالمي للصحة' },
-            { date: '2026-04-22', event: 'اليوم العالمي للبيئة' }
+            { date: '2026-04-22', event: 'اليوم العالمي للبيئة' },
+            { date: '2026-05-01', event: 'عيد العمال' }
         ];
 
         function checkEvent() {
-            const today = new Date().toISOString().split('T')[0]; // الحصول على تاريخ اليوم
-            document.getElementById('current-date').textContent = today;
-
-            const eventToday = events.find(event => event.date === today);
-            if (eventToday) {
-                document.getElementById('event-info').textContent = `اليوم هو: ${eventToday.event}`;
-            } else {
-                document.getElementById('event-info').textContent = 'لا توجد مناسبة عالمية اليوم.';
-            }
-        }
-
-        checkEvent();
-    </script>
-</body>
-</html>
+            const today = new Date
