@@ -1,44 +1,3 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الأيام العالمية</title>
-
-<style>
-body{
-font-family:Tahoma;
-background:#0f172a;
-color:white;
-text-align:center;
-padding:20px;
-}
-
-.card{
-background:#1e293b;
-margin:15px auto;
-padding:20px;
-border-radius:15px;
-max-width:420px;
-box-shadow:0 0 15px rgba(0,0,0,.4);
-}
-
-.today{border:2px solid #22c55e;}
-.prev{border:2px solid #64748b;}
-.next{border:2px solid #f59e0b;}
-
-h1{color:#22c55e}
-</style>
-</head>
-
-<body>
-
-<h1>📅 الأيام العالمية</h1>
-
-<div id="previous" class="card prev"></div>
-<div id="today" class="card today"></div>
-<div id="next" class="card next"></div>
-
 <script>
 
 const days = [
@@ -86,62 +45,47 @@ const months=[
 ];
 
 function getTodayValue(){
-let now=new Date();
+let now=new Date(); // يعتمد على تاريخ الموبايل
 return (now.getMonth()+1)*100+now.getDate();
 }
 
-function findEvents(){
+function showAllDays(){
 
+let container=document.body;
 let todayValue=getTodayValue();
+
+// ترتيب حسب التاريخ
 let sorted=[...days].sort((a,b)=> (a.m*100+a.d)-(b.m*100+b.d));
 
-let todayEvent=sorted.find(x=> (x.m*100+x.d)===todayValue);
+sorted.forEach(day=>{
 
-let prev=null;
-let next=null;
+let value=day.m*100+day.d;
+let statusClass="prev";
+let icon="⬅";
 
-for(let i=0;i<sorted.length;i++){
-let value=sorted[i].m*100+sorted[i].d;
-
-if(value<todayValue) prev=sorted[i];
-if(value>todayValue && !next) next=sorted[i];
+if(value===todayValue){
+statusClass="today";
+icon="⭐";
+}
+else if(value>todayValue){
+statusClass="next";
+icon="⏭";
 }
 
-if(!prev) prev=sorted[sorted.length-1];
-if(!next) next=sorted[0];
+let card=document.createElement("div");
+card.className="card "+statusClass;
 
-return {todayEvent,prev,next};
+card.innerHTML=
+"<h3>"+icon+" "+day.name+"</h3>"+
+day.d+" "+months[day.m-1]+"<br><br>"+
+day.goal;
+
+container.appendChild(card);
+
+});
+
 }
 
-function show(){
-
-let data=findEvents();
-
-previous.innerHTML=
-"<h3>⬅ المناسبة السابقة</h3>"+
-data.prev.name+"<br>"+
-data.prev.d+" "+months[data.prev.m-1]+"<br>"+
-data.prev.goal;
-
-if(data.todayEvent){
-today.innerHTML=
-"<h3>⭐ مناسبة اليوم</h3>"+
-data.todayEvent.name+"<br>"+
-data.todayEvent.d+" "+months[data.todayEvent.m-1]+"<br>"+
-data.todayEvent.goal;
-}else{
-today.innerHTML="<h3>⭐ لا توجد مناسبة عالمية اليوم</h3>";
-}
-
-next.innerHTML=
-"<h3>⏭ المناسبة القادمة</h3>"+
-data.next.name+"<br>"+
-data.next.d+" "+months[data.next.m-1]+"<br>"+
-data.next.goal;
-}
-
-show();
+showAllDays();
 
 </script>
-</body>
-</html>
