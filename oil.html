@@ -31,6 +31,9 @@ h1{
     font-size:18px;
     margin-top:10px;
 }
+.today{
+    border-right:6px solid #f59e0b;
+}
 </style>
 </head>
 
@@ -38,6 +41,8 @@ h1{
 
 <h1>مواعيد حصة البنزين</h1>
 <p>محافظة كركوك</p>
+
+<div id="today" class="card today"></div>
 
 <div id="previous" class="card previous"></div>
 <div id="current" class="card current"></div>
@@ -52,19 +57,43 @@ today.setHours(0,0,0,0);
 const diffTime = today - startDate;
 const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-let cycleNumber = Math.floor(diffDays / 5);
+// أسماء الأيام بالعربي
+const arabicDays = [
+    "الأحد",
+    "الاثنين",
+    "الثلاثاء",
+    "الأربعاء",
+    "الخميس",
+    "الجمعة",
+    "السبت"
+];
 
-if (diffDays < 0) {
-    cycleNumber = 0;
+const todayName = arabicDays[today.getDay()];
+
+// رقم الدورة (كل 5 أيام)
+let cycleNumber = Math.floor(diffDays / 5);
+if (diffDays < 0) cycleNumber = 0;
+
+// تحديد يوم داخل الدورة (1 - 5)
+let dayInCycle = (diffDays % 5) + 1;
+if (diffDays < 0) dayInCycle = 1;
+
+let cycleDayText = "";
+switch(dayInCycle){
+    case 1: cycleDayText = "اليوم الأول"; break;
+    case 2: cycleDayText = "اليوم الثاني"; break;
+    case 3: cycleDayText = "اليوم الثالث"; break;
+    case 4: cycleDayText = "اليوم الرابع"; break;
+    case 5: cycleDayText = "اليوم الخامس والأخير"; break;
 }
 
 function getCycleDates(cycle){
     const start = new Date(startDate);
     start.setDate(startDate.getDate() + (cycle * 5));
-    
+
     const end = new Date(start);
     end.setDate(start.getDate() + 4);
-    
+
     return {start, end};
 }
 
@@ -75,6 +104,15 @@ function formatDate(date){
 const previousCycle = getCycleDates(cycleNumber - 1);
 const currentCycle = getCycleDates(cycleNumber);
 const nextCycle = getCycleDates(cycleNumber + 1);
+
+// اليوم الحالي
+document.getElementById("today").innerHTML = `
+<h3>اليوم: ${todayName}</h3>
+<div class="date">${formatDate(today)}</div>
+<div style="margin-top:10px;font-weight:bold;color:#f59e0b;">
+${cycleDayText}
+</div>
+`;
 
 document.getElementById("previous").innerHTML = `
 <h3>الحصة السابقة</h3>
