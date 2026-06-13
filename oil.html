@@ -14,21 +14,16 @@ body{
     padding:20px;
 }
 
-h1{
-    color:#1e3a8a;
-}
+h1{ color:#1e3a8a; }
 
-/* اليوم (نص فقط بدون كارد) */
+/* اليوم */
 #todayText{
     font-size:20px;
     font-weight:bold;
     color:#111827;
     margin:15px 0 25px 0;
 }
-
-#todayText span{
-    color:#16a34a;
-}
+#todayText span{ color:#16a34a; }
 
 /* الكاردات */
 .card{
@@ -48,6 +43,32 @@ h1{
     font-size:18px;
     margin-top:10px;
 }
+
+/* الفوتر */
+.footer{
+    margin-top:35px;
+    padding:20px;
+    font-weight:bold;
+    color:#111827;
+}
+
+.social{
+    margin-top:12px;
+    display:flex;
+    justify-content:center;
+    gap:18px;
+}
+
+/* أيقونات */
+.social a img{
+    width:32px;
+    height:32px;
+    transition:0.2s;
+}
+
+.social a img:hover{
+    transform:scale(1.2);
+}
 </style>
 </head>
 
@@ -56,13 +77,26 @@ h1{
 <h1>مواعيد حصة البنزين</h1>
 <p>محافظة كركوك</p>
 
-<!-- اليوم بدون كارد -->
 <div id="todayText"></div>
 
-<!-- باقي الحصص -->
 <div id="previous" class="card previous"></div>
 <div id="current" class="card current"></div>
 <div id="next" class="card next"></div>
+
+<!-- الفوتر -->
+<div class="footer">
+    <div>Barham H. Hussein</div>
+
+    <div class="social">
+        <a href="https://www.facebook.com/barhamh.hussein" target="_blank">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/facebook.svg" alt="Facebook">
+        </a>
+
+        <a href="https://www.linkedin.com/in/barham-h-hussein-587910118/" target="_blank">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/linkedin.svg" alt="LinkedIn">
+        </a>
+    </div>
+</div>
 
 <script>
 
@@ -109,7 +143,6 @@ function formatDate(date){
     return date.toLocaleDateString('ar-IQ');
 }
 
-// اليوم (نص جميل بدون مربع)
 document.getElementById("todayText").innerHTML = `
 اليوم: <span>${todayName}</span> — ${formatDate(today)}<br>
 <span style="color:#16a34a;">${cycleDayText}</span>
