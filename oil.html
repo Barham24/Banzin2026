@@ -13,9 +13,24 @@ body{
     direction: rtl;
     padding:20px;
 }
+
 h1{
     color:#1e3a8a;
 }
+
+/* اليوم (نص فقط بدون كارد) */
+#todayText{
+    font-size:20px;
+    font-weight:bold;
+    color:#111827;
+    margin:15px 0 25px 0;
+}
+
+#todayText span{
+    color:#16a34a;
+}
+
+/* الكاردات */
 .card{
     background:white;
     padding:20px;
@@ -24,15 +39,14 @@ h1{
     border-radius:12px;
     box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
+
 .previous{border-right:6px solid #9ca3af;}
 .current{border-right:6px solid #16a34a;}
 .next{border-right:6px solid #2563eb;}
+
 .date{
     font-size:18px;
     margin-top:10px;
-}
-.today{
-    border-right:6px solid #f59e0b;
 }
 </style>
 </head>
@@ -42,39 +56,33 @@ h1{
 <h1>مواعيد حصة البنزين</h1>
 <p>محافظة كركوك</p>
 
-<div id="today" class="card today"></div>
+<!-- اليوم بدون كارد -->
+<div id="todayText"></div>
 
+<!-- باقي الحصص -->
 <div id="previous" class="card previous"></div>
 <div id="current" class="card current"></div>
 <div id="next" class="card next"></div>
 
 <script>
 
-const startDate = new Date(2026, 0, 5); // 5-1-2026
+const startDate = new Date(2026, 0, 5);
 const today = new Date();
 today.setHours(0,0,0,0);
 
 const diffTime = today - startDate;
 const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-// أسماء الأيام بالعربي
 const arabicDays = [
-    "الأحد",
-    "الاثنين",
-    "الثلاثاء",
-    "الأربعاء",
-    "الخميس",
-    "الجمعة",
-    "السبت"
+    "الأحد","الاثنين","الثلاثاء","الأربعاء",
+    "الخميس","الجمعة","السبت"
 ];
 
 const todayName = arabicDays[today.getDay()];
 
-// رقم الدورة (كل 5 أيام)
 let cycleNumber = Math.floor(diffDays / 5);
 if (diffDays < 0) cycleNumber = 0;
 
-// تحديد يوم داخل الدورة (1 - 5)
 let dayInCycle = (diffDays % 5) + 1;
 if (diffDays < 0) dayInCycle = 1;
 
@@ -101,35 +109,29 @@ function formatDate(date){
     return date.toLocaleDateString('ar-IQ');
 }
 
+// اليوم (نص جميل بدون مربع)
+document.getElementById("todayText").innerHTML = `
+اليوم: <span>${todayName}</span> — ${formatDate(today)}<br>
+<span style="color:#16a34a;">${cycleDayText}</span>
+`;
+
 const previousCycle = getCycleDates(cycleNumber - 1);
 const currentCycle = getCycleDates(cycleNumber);
 const nextCycle = getCycleDates(cycleNumber + 1);
 
-// اليوم الحالي
-document.getElementById("today").innerHTML = `
-<h3>اليوم: ${todayName}</h3>
-<div class="date">${formatDate(today)}</div>
-<div style="margin-top:10px;font-weight:bold;color:#f59e0b;">
-${cycleDayText}
-</div>
-`;
-
 document.getElementById("previous").innerHTML = `
 <h3>الحصة السابقة</h3>
-<div class="date">${formatDate(previousCycle.start)} 
-إلى ${formatDate(previousCycle.end)}</div>
+<div class="date">${formatDate(previousCycle.start)} إلى ${formatDate(previousCycle.end)}</div>
 `;
 
 document.getElementById("current").innerHTML = `
 <h3>الحصة الحالية</h3>
-<div class="date">${formatDate(currentCycle.start)} 
-إلى ${formatDate(currentCycle.end)}</div>
+<div class="date">${formatDate(currentCycle.start)} إلى ${formatDate(currentCycle.end)}</div>
 `;
 
 document.getElementById("next").innerHTML = `
 <h3>الحصة القادمة</h3>
-<div class="date">${formatDate(nextCycle.start)} 
-إلى ${formatDate(nextCycle.end)}</div>
+<div class="date">${formatDate(nextCycle.start)} إلى ${formatDate(nextCycle.end)}</div>
 `;
 
 </script>
